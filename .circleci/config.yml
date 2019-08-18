@@ -50,7 +50,7 @@ jobs:
               export LOGGLY_CUSTOMER_TOKEN=${LOGGLY_CUSTOMER_TOKEN}
             EOM
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@${DO_HOST} "mkdir -p rightmove-commute" && scp -o StrictHostKeyChecking=no docker-compose.yml ${DO_USER}@${DO_HOST}:~/rightmove-commute
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@${DO_HOST} "mkdir -p rightmove-commute" && scp -o StrictHostKeyChecking=no docker-compose.yml env.sh ${DO_USER}@${DO_HOST}:~/rightmove-commute
       - run:
           command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@${DO_HOST}:~
       - run:

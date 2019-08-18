@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  api:
+    image: mattcroberts/rightmove-commute:${TAG}
+    restart: on-failure
+    ports:
+      - "3000:6000"
+    expose:
+      - 3000
+  nginx:
+    volumes:
+      - ./nginx/include_rightmove-commute:/etc/nginx/conf.d/include_rightmove-commute
+  logs:
+    image: gliderlabs/logspout:latest
+    volumes:
+      - /etc/hostname:/etc/host_hostname:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - SYSLOG_STRUCTURED_DATA=${LOGGLY_CUSTOMER_TOKEN}@41058
+    command: syslog+tcp://logs-01.loggly.com:514

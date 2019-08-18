@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  api:
+  rightmove-commute-api:
     image: mattcroberts/rightmove-commute:${RIGHTMOVE_COMMUTE_TAG}
     restart: on-failure
     ports:
@@ -11,11 +11,11 @@ services:
   nginx:
     volumes:
       - ./nginx/include_rightmove-commute:/etc/nginx/conf.d/include_rightmove-commute
-  logs:
-    image: gliderlabs/logspout:latest
-    volumes:
-      - /etc/hostname:/etc/host_hostname:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - SYSLOG_STRUCTURED_DATA=${LOGGLY_CUSTOMER_TOKEN}@41058
-    command: syslog+tcp://logs-01.loggly.com:514
+  # logs:
+  #   image: gliderlabs/logspout:latest
+  #   volumes:
+  #     - /etc/hostname:/etc/host_hostname:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - SYSLOG_STRUCTURED_DATA=${LOGGLY_CUSTOMER_TOKEN}@41058
+  #   command: syslog+tcp://logs-01.loggly.com:514

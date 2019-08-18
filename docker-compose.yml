@@ -4,6 +4,8 @@ services:
   rightmove-commute-api:
     image: mattcroberts/rightmove-commute:${RIGHTMOVE_COMMUTE_TAG}
     restart: on-failure
+    env:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
     ports:
       - "6000:6000"
     expose:

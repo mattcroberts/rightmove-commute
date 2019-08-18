@@ -46,7 +46,7 @@ jobs:
           command: |
             cat > env.sh <<- EOM
               export GOOGLE_API_KEY=${GOOGLE_API_KEY}
-              export TAG=0.1.${CIRCLE_SHA1}
+              export RIGHTMOVE_COMMUTE_TAG=0.1.${CIRCLE_SHA1}
               export LOGGLY_CUSTOMER_TOKEN=${LOGGLY_CUSTOMER_TOKEN}
             EOM
       - run:

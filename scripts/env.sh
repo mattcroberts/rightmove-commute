@@ -2,5 +2,5 @@
 
 # Expose secret vars here
 export GOOGLE_API_KEY=abc
-export TAG=latest
+export RIGHTMOVE_COMMUTE_TAG=latest
 export LOGGLY_CUSTOMER_TOKEN=abc

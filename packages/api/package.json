@@ -14,7 +14,8 @@
     "lib"
   ],
   "scripts": {
-    "dev": "nodemon lib/api.js"
+    "dev": "nodemon lib/api.js",
+    "start": "node lib/api.js"
   },
   "dependencies": {
     "fastify": "^2.7.1",

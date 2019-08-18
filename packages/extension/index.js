@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://irix.dev/travel-time";
+const apiBaseUrl = "https://irix.dev/rightmove-commute/travel-time";
 
 const tag = document.querySelector('img[alt="Get map and local information"]');
 
@@ -22,19 +22,18 @@ chrome.storage.sync.get(
       throw new Error("Missing Destination");
     }
 
-    const cityMapperLink = `https://citymapper.com?startcoord=${origin.lat},${
-      origin.long
-    }&endcoord${destination.lat},${destination.long}`;
-
-    const apiUrl = `${apiBaseUrl}/travel-time?originLat=${
+    const cityMapperLink = `https://citymapper.com/directions?startcoord=${
       origin.lat
-    }&originLong=${origin.long}&destinationLat=${
-      destination.lat
-    }&destinationLong=${destination.long}`;
+    },${origin.long}&endcoord=${destination.lat},${destination.long}`;
 
-    const link = document.createElement("a");
-    link.innerHTML = "See on CityMapper";
-    link.setAttribute("href", cityMapperLink);
+    const apiUrl = `${apiBaseUrl}?originLat=${origin.lat}&originLong=${
+      origin.long
+    }&destinationLat=${destination.lat}&destinationLong=${destination.long}`;
+
+    const cityMapperLink = document.createElement("a");
+    cityMapperLink.innerHTML = "See on CityMapper";
+    cityMapperLink.setAttribute("href", cityMapperLink);
+    cityMapperLink.setAttribute("target", "black");
 
     const textElement = document.createElement("div");
     textElement.innerHTML = "Loading...";
@@ -42,7 +41,7 @@ chrome.storage.sync.get(
     const element = document.createElement("div");
     element.setAttribute("id", "rmCommute");
     element.appendChild(textElement);
-    element.appendChild(link);
+    element.appendChild(cityMapperLink);
 
     const style = {
       position: "absolute",
@@ -64,7 +63,7 @@ chrome.storage.sync.get(
         response.ok ? response.json() : Promise.reject(response)
       )
       .then(response => {
-        textElement.innerHTML = `Time to destination: ${response} mins`;
+        textElement.innerHTML = `Time to work: ${Math.round(response)} mins`;
       })
       .catch(err => {
         element.style.backgroundColor = "red";

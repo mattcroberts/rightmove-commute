@@ -9,4 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     e.preventDefault();
   });
+
+  chrome.storage.sync.get(
+    ["destinationLatitude", "destinationLongitude"],
+    ({ destinationLatitude, destinationLongitude }) => {
+      if (destinationLatitude && destinationLongitude) {
+        form.latitude.value = destinationLatitude;
+        form.longitude.value = destinationLongitude;
+      }
+    }
+  );
 });

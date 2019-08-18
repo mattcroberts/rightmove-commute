@@ -47,6 +47,6 @@ fastify.get("/travel-time", async (req, res) => {
   }
 });
 
-fastify.listen(3000, () => {
+fastify.listen(process.env.PORT || 6000, () => {
   console.log("listening");
 });

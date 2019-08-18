@@ -9,7 +9,7 @@ fastify.register(require("fastify-cors"), {
   // put your options here
 });
 
-const CITYMAPPER_API_KEY = '';
+const CITYMAPPER_API_KEY = "";
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 const googleMapsClient = require("@google/maps").createClient({
@@ -47,6 +47,6 @@ fastify.get("/travel-time", async (req, res) => {
   }
 });
 
-fastify.listen(process.env.PORT || 6000, () => {
+fastify.listen(process.env.PORT || 6000, "0.0.0.0", () => {
   console.log("listening");
 });

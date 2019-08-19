@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "lint": "eslint packages"
+  },
   "devDependencies": {
-    "lerna": "^3.16.4"
+    "eslint": "^6.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "lerna": "^3.16.4",
+    "prettier": "^1.18.2"
   }
 }

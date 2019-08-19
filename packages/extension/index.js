@@ -1,55 +1,51 @@
-const apiBaseUrl = "https://irix.dev/rightmove-commute/travel-time";
+const apiBaseUrl = 'https://irix.dev/rightmove-commute/travel-time';
 
 const tag = document.querySelector('img[alt="Get map and local information"]');
 
 const url = new URL(tag.src);
-const origin = {
-  lat: url.searchParams.get("latitude"),
-  long: url.searchParams.get("longitude")
+const originLocation = {
+  lat: url.searchParams.get('latitude'),
+  long: url.searchParams.get('longitude'),
 };
 
 chrome.storage.sync.get(
-  ["destinationLatitude", "destinationLongitude"],
+  ['destinationLatitude', 'destinationLongitude'],
   ({ destinationLatitude, destinationLongitude }) => {
-    const destination = {
+    const destinationLocation = {
       lat: destinationLatitude,
-      long: destinationLongitude
+      long: destinationLongitude,
     };
 
-    console.log({ destination });
+    console.log({ destination: destinationLocation });
 
-    if (!destination.lat || !destination.long) {
-      throw new Error("Missing Destination");
+    if (!destinationLocation.lat || !destinationLocation.long) {
+      throw new Error('Missing Destination');
     }
 
-    const cityMapperLink = `https://citymapper.com/directions?startcoord=${
-      origin.lat
-    },${origin.long}&endcoord=${destination.lat},${destination.long}`;
+    const cityMapperLink = `https://citymapper.com/directions?startcoord=${origin.lat},${origin.long}&endcoord=${destinationLocation.lat},${destinationLocation.long}`;
 
-    const apiUrl = `${apiBaseUrl}?originLat=${origin.lat}&originLong=${
-      origin.long
-    }&destinationLat=${destination.lat}&destinationLong=${destination.long}`;
+    const apiUrl = `${apiBaseUrl}?originLat=${originLocation.lat}&originLong=${originLocation.long}&destinationLat=${destinationLocation.lat}&destinationLong=${destinationLocation.long}`;
 
-    const cityMapperLink = document.createElement("a");
-    cityMapperLink.innerHTML = "See on CityMapper";
-    cityMapperLink.setAttribute("href", cityMapperLink);
-    cityMapperLink.setAttribute("target", "black");
+    const cityMapperLinkTag = document.createElement('a');
+    cityMapperLinkTag.innerHTML = 'See on CityMapper';
+    cityMapperLinkTag.setAttribute('href', cityMapperLink);
+    cityMapperLinkTag.setAttribute('target', 'black');
 
-    const textElement = document.createElement("div");
-    textElement.innerHTML = "Loading...";
+    const textElement = document.createElement('div');
+    textElement.innerHTML = 'Loading...';
 
-    const element = document.createElement("div");
-    element.setAttribute("id", "rmCommute");
+    const element = document.createElement('div');
+    element.setAttribute('id', 'rmCommute');
     element.appendChild(textElement);
-    element.appendChild(cityMapperLink);
+    element.appendChild(cityMapperLinkTag);
 
     const style = {
-      position: "absolute",
+      position: 'absolute',
       left: 0,
       top: 0,
       zIndex: 999999,
-      backgroundColor: "chartreuse",
-      padding: "3px 9px"
+      backgroundColor: 'chartreuse',
+      padding: '3px 9px',
     };
 
     Object.entries(style).forEach(([name, value]) => {
@@ -59,15 +55,13 @@ chrome.storage.sync.get(
     document.body.appendChild(element);
 
     fetch(apiUrl)
-      .then(response =>
-        response.ok ? response.json() : Promise.reject(response)
-      )
+      .then(response => (response.ok ? response.json() : Promise.reject(response)))
       .then(response => {
         textElement.innerHTML = `Time to work: ${Math.round(response)} mins`;
       })
       .catch(err => {
-        element.style.backgroundColor = "red";
-        textElement.innerHTML = "Error";
+        element.style.backgroundColor = 'red';
+        textElement.innerHTML = 'Error';
         console.error(err);
       });
   }

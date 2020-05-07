@@ -6,8 +6,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
+      - setup_remote_docker
       - run:
           working_directory: ~/repo
           command: docker build -t mattcroberts/rightmove-commute:0.1.${CIRCLE_SHA1} -t mattcroberts/rightmove-commute:latest -f ./packages/api/Dockerfile .

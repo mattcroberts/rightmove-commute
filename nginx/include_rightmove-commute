@@ -1,7 +1,0 @@
-location /rightmove-commute {
-    rewrite /rightmove-commute/(.*) /$1  break;
-
-    proxy_pass http://rightmove-commute-api:6000;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-}

@@ -22,7 +22,7 @@ chrome.storage.sync.get(
       throw new Error('Missing Destination');
     }
 
-    const cityMapperLink = `https://citymapper.com/directions?startcoord=${origin.lat},${origin.long}&endcoord=${destinationLocation.lat},${destinationLocation.long}`;
+    const cityMapperLink = `https://citymapper.com/directions?startcoord=${originLocation.lat},${originLocation.long}&endcoord=${destinationLocation.lat},${destinationLocation.long}`;
 
     const apiUrl = `${apiBaseUrl}?originLat=${originLocation.lat}&originLong=${originLocation.long}&destinationLat=${destinationLocation.lat}&destinationLong=${destinationLocation.long}`;
 
